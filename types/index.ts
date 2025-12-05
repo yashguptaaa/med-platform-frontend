@@ -42,6 +42,7 @@ export interface Doctor {
   reviewCount?: number;
   city: string;
   hospitals: Pick<Hospital, "id" | "name" | "city" | "address">[];
+  availability?: Availability[];
 }
 
 export interface Job {
