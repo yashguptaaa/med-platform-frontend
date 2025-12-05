@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { HospitalCard } from "@/components/cards/HospitalCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import type { Hospital, PaginatedResponse } from "@/types";

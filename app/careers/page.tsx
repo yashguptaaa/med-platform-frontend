@@ -1,4 +1,6 @@
 import { api } from "@/lib/api";
+
+export const dynamic = "force-dynamic";
 import type { Job } from "@/types";
 
 async function loadJobs(): Promise<Job[]> {
