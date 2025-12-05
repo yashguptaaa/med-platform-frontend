@@ -90,7 +90,7 @@ export function PatientAppointmentsList() {
 
   if (loading) return <div className="text-slate-500">Loading appointments...</div>;
 
-  if (!appointments || appointments.length === 0) {
+  if (!appointments?.length ) {
     return (
       <div className="text-center py-12 bg-slate-50 rounded-xl border border-dashed border-slate-200">
         <p className="text-slate-500">You haven't booked any appointments yet.</p>
