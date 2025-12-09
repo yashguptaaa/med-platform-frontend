@@ -16,6 +16,8 @@ async function loadJobs(): Promise<Job[]> {
 export default async function CareersPage() {
   const jobs = await loadJobs();
 
+  return null;
+  /*
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10">
       <section className="space-y-4 rounded-3xl bg-white p-6 shadow-sm">
@@ -56,4 +58,5 @@ export default async function CareersPage() {
       )}
     </div>
   );
+  */
 }
