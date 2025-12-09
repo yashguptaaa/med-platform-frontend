@@ -10,7 +10,7 @@ const PUBLIC_LINKS = [
   { href: "/doctors", label: "Doctors" },
   { href: "/hospitals", label: "Hospitals" },
   { href: "/about", label: "About" },
-  { href: "/careers", label: "Careers" },
+  // { href: "/careers", label: "Careers" },
   { href: "/help", label: "Help / Contact" },
 ];
 
