@@ -1,9 +1,11 @@
 import axios from "axios";
 import { toCamelCase, toSnakeCase } from "./transform";
 
+const INSTANCE_IP = process.env.EIP || "15.207.54.240";
+
 const API_URL = typeof window !== "undefined" 
   ? "/api" 
-  : (process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:4000/api").replace("localhost", "127.0.0.1");
+  : `http://${INSTANCE_IP}:4000/api`;
 
 export const api = axios.create({
   baseURL: API_URL,
