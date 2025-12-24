@@ -22,12 +22,15 @@ type HospitalSearchParams = {
   order?: "asc" | "desc";
   page?: string;
   limit?: string;
+  lat?: string;
+  lng?: string;
 };
 
 const toStringParam = (value: string | string[] | undefined) =>
   Array.isArray(value) ? value[0] : value;
 
-import { api } from "@/lib/api";
+import { api, getNearbyHospitals } from "@/lib/api";
+import { NearbyHospitalsButton } from "@/components/hospitals/NearbyHospitalsButton";
 
 async function loadHospitals(searchParams: HospitalSearchParams) {
   try {
@@ -42,6 +45,17 @@ async function loadHospitals(searchParams: HospitalSearchParams) {
     if (searchParams.order) {
       apiParams.sortBy = "rating"; // Currently only sorting by rating is supported in UI
       apiParams.order = searchParams.order;
+    }
+
+    if (searchParams.lat && searchParams.lng) {
+      const resData = await getNearbyHospitals(
+        parseFloat(searchParams.lat),
+        parseFloat(searchParams.lng)
+      );
+      return {
+        data: resData.data,
+        meta: { page: 1, limit: 100, total: resData.data.length, totalPages: 1 },
+      };
     }
     
     const res = await api.get("/hospitals", { params: apiParams });
@@ -70,6 +84,8 @@ export default async function HospitalsPage({
     order: (toStringParam(searchParams?.order) as "asc" | "desc") ?? "desc",
     page: toStringParam(searchParams?.page),
     limit: toStringParam(searchParams?.limit),
+    lat: toStringParam(searchParams?.lat),
+    lng: toStringParam(searchParams?.lng),
   };
 
   const { data, meta } = await loadHospitals(params);
@@ -118,13 +134,14 @@ export default async function HospitalsPage({
               <option value="asc">Lowest rating</option>
             </select>
           </label>
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 flex flex-col md:flex-row gap-4 items-center justify-between">
             <button
               type="submit"
               className="w-full rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-400 md:w-auto"
             >
               Apply filters
             </button>
+            <NearbyHospitalsButton />
           </div>
         </form>
       </section>

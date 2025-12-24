@@ -34,9 +34,19 @@ api.interceptors.response.use(
     // Handle 401 (Unauthorized) - e.g., redirect to login or refresh token
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
-        // Optional: clear token and redirect
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);
   }
 );
+
+export const getNearbyHospitals = async (lat: number, lng: number) => {
+  const response = await api.get("/hospitals/nearby", {
+    params: { lat, lng },
+  });
+  return response.data;
+};
+
